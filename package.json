@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "babel -d ./build src",
-    "go": "node build/apps.js",
+    "start": "node build/apps.js",
     "test": "mocha test/*.js"
   },
   "author": "",
