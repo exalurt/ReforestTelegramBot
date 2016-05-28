@@ -1,8 +1,6 @@
 const TelegramBot = require('node-telegram-bot-api');
 const tesseract = require('node-tesseract');
 const PaserLines = require('./PaserLines');
-const CommandList = require('./Order/OrderList');
-const CommandCreateUser = require('./Order/OrderCreateUser');
 
 module.exports = class reforest{
 
@@ -10,15 +8,15 @@ module.exports = class reforest{
     this._photoDir = photoDir;
     this._db = db;
     this._bot = new TelegramBot(token, {polling: true});
-
     
     this._bot.onText(/\/createUser (.+)/, (msg)=>this._createUser(msg));
     this._bot.onText(/\/deleteUser (.+)/, (msg)=>this._deleteUser(msg));
+    this._bot.onText(/\/help/, (msg)=>this._help(msg));
     this._bot.onText(/\/list/, (msg)=>this._list(msg));
     this._bot.onText(/\/setAdmin (.+)/, (msg)=>this._setUser(msg, 'admin'));
     this._bot.onText(/\/setJefazo (.+)/, (msg)=>this._setUser(msg, 'jefazo'));
     this._bot.onText(/\/setRaso (.+)/, (msg)=>this._setUser(msg, 'raso'));
-    this._bot.on('document', (msg)=>this._recivePhoto(msg));
+    //this._bot.on('document', (msg)=>this._recivePhoto(msg));
   }
 
   _sendMessage(chatId,msg){
@@ -33,6 +31,11 @@ module.exports = class reforest{
   _deleteUser(msg){
     let orderDeleteUser = require('./Order/OrderDeleteUser')(this._db, this);
     orderDeleteUser.execute(msg);
+  }
+
+  _help(msg){
+    let orderHelp = require('./Order/OrderHelp')(this._db, this);
+    orderHelp.execute(msg);
   }
 
   _list(msg){

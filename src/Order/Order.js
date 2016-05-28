@@ -7,9 +7,11 @@ module.exports = class Order {
 
 	execute(msg, obj) {
 		this.chatId = msg.chat.id;
+		console.log(msg.chat.username, msg.text);
 		this._db.User.find({
 			where:{username: msg.from.username}
 		}).then((user) => {
+			this._user = user;
 			if(user == null){
 				return;
 			}

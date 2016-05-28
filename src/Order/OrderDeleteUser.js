@@ -15,11 +15,11 @@ class orderDeleteUser extends Order {
 
 	callback(msg){
 		var cmd = msg.text.split(' ');
+		
 		if(cmd.length<2){
 			this._reforest._sendMessage(this.chatId, 'no hay lista de usuarios a crear');
 		}
 
-		var bulk = [];
 		for(var i=1;i<cmd.length;i++){
 			this.deleteUser(cmd[i]);
 		}
@@ -30,6 +30,7 @@ class orderDeleteUser extends Order {
 			this._reforest._sendMessage(this.chatId, '¿Donde vas bitter kas?');
 			return;
 		}
+
 		this._db.User.find({
 			where: {username: username}
 		}).then((user)=>{

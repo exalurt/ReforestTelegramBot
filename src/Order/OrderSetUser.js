@@ -6,8 +6,6 @@ module.exports = function(db, reforest, rango){
 
 class orderSetUser extends Order {
 	constructor(db, reforest, rango) {
-
-		console.log("creando objeto");
 		super(db, reforest, 'jefazo admin');
 		this._rango = rango;
 	}
@@ -32,7 +30,7 @@ class orderSetUser extends Order {
 			this._reforest._sendMessage(this.chatId, '¿Donde vas bitter kas?');
 			return;
 		}
-		console.log(this._rango);
+
 		this._db.User.find({
 			where: {username: username}
 		}).then((user)=>{
