@@ -11,7 +11,6 @@ module.exports = class Order {
 			where:{username: msg.from.username}
 		}).then((user) => {
 			if(user == null){
-				this._reforest._sendMessage(this.chatId, 'Me vuelvo loco.');
 				return;
 			}
 

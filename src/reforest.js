@@ -14,17 +14,15 @@ module.exports = class reforest{
     
     this._bot.onText(/\/createUser (.+)/, (msg)=>this._createUser(msg));
     this._bot.onText(/\/deleteUser (.+)/, (msg)=>this._deleteUser(msg));
-    this._bot.onText(/\/list/, (msg)=>this._listado(msg));
+    this._bot.onText(/\/list/, (msg)=>this._list(msg));
+    this._bot.onText(/\/setAdmin (.+)/, (msg)=>this._setUser(msg, 'admin'));
+    this._bot.onText(/\/setJefazo (.+)/, (msg)=>this._setUser(msg, 'jefazo'));
+    this._bot.onText(/\/setRaso (.+)/, (msg)=>this._setUser(msg, 'raso'));
     this._bot.on('document', (msg)=>this._recivePhoto(msg));
   }
 
   _sendMessage(chatId,msg){
     this._bot.sendMessage(chatId,msg);
-  }
-
-  _listado(msg){
-    let orderList = require('./Order/OrderList')(this._db, this);
-    orderList.execute(msg);
   }
 
   _createUser(msg){
@@ -35,6 +33,11 @@ module.exports = class reforest{
   _deleteUser(msg){
     let orderDeleteUser = require('./Order/OrderDeleteUser')(this._db, this);
     orderDeleteUser.execute(msg);
+  }
+
+  _list(msg){
+    let orderList = require('./Order/OrderList')(this._db, this);
+    orderList.execute(msg);
   }
 
   _recivePhoto (msg) {
@@ -55,5 +58,10 @@ module.exports = class reforest{
 
       this._sendMessage(chatId,"pero queeeeee");
     });
+  }
+
+  _setUser(msg,rango) {
+    let orderSetUser = require('./Order/OrderSetUser')(this._db, this, rango);
+    orderSetUser.execute(msg);
   }
 }
