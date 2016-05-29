@@ -10,7 +10,6 @@ class orderAddUserEvent extends Order {
 	}
 
 	execute(msg) {
-		//super.execute(msg, this);
 		this.chatId = msg.chat.id;
 		var cmd = '';
 		this.validate(msg)
@@ -31,22 +30,6 @@ class orderAddUserEvent extends Order {
 			this.addUser(event, cmd);
 		})
 		.catch(err=>this.error(err));
-	}
-
-	callback(msg){
-		var cmd = msg.text.split(' ');
-
-		this._db.Event.find({
-			where:{
-				name: cmd[1]
-			}
-		}).then((event)=>{
-			if(event === null){
-				this._reforest._sendMessage(this.chatId, 'Lo siento, el evento solicitado no existe.');
-				return;
-			}
-			this.addUser(event, cmd);
-		});
 	}
 
 	addUser(event,cmd) {

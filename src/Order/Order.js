@@ -68,5 +68,6 @@ module.exports = class Order {
 		if (err.message !== undefined) {
 			this._reforest._sendMessage(err.message.id, err.message.text);
 		}
+		console.log(err);
 	}
 }
