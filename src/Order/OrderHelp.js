@@ -39,18 +39,27 @@ class orderHelp extends Order {
 			range: "jefazo admin raso",
 			title: "Operaciones de raso.\n",
 			op:[
-				"/help\n Da a los usuarios nivel raso.\n"
+				"/help\n Ayuda con los comandos del bot. Solo salen a los que tienes acceso.\n"
 			]
 		};
 	}
 
 	execute(msg) {
-		super.execute(msg, this);
+		//super.execute(msg, this);
+		var chatId = msg.chat.id;
+		this.validate(msg)
+		.then(user =>{
+			var message = this.listaComandos(user.roll, this.jefazo);
+			message += "\n\n" + this.listaComandos(user.roll, this.admin);
+			message += "\n\n" + this.listaComandos(user.roll, this.raso);
+			this._reforest._sendMessage(chatId, message);
+		})
+		.catch(err=>this.error(err));
 	}
 
-	listaComandos(vec) {
+	listaComandos(roll, vec) {
 		var message = "";
-		if(vec.range.indexOf(this._user.roll)>-1) {
+		if(vec.range.indexOf(roll)>-1) {
 			message += vec.title;
 			for(var i=0;i<vec.op.length;i++) {
 				message += vec.op[i];
