@@ -10,21 +10,38 @@ class orderCreateEvent extends Order {
 	}
 
 	execute(msg) {
-		super.execute(msg, this);
+		var chatId = msg.chat.id;
+		this.validate(msg)
+		.then(user =>{
+			return this.checkParams(msg);
+		})
+		.then(newEvent =>{
+			return this._db.Event.create({
+				name: newEvent[1],
+				start: newEvent[2],
+				end: newEvent[3]
+			})
+		})
+		.then(()=>{
+			this._reforest._sendMessage(chatId, 'Evento creado');
+		})
+		.catch(err=>this.error(err));
 	}
 
-	callback(msg){
+	checkParams(msg){
 		var cmd = msg.text.split(' ');
-		if(cmd.length!==4){
-			this._reforest._sendMessage(this.chatId, 'El número de parámetros para crear un evento es incorrecto.');
-		}
+		var chatId = msg.chat.id;
 
-		this._db.Event.create({
-			name:cmd[1],
-			start:cmd[2],
-			end:cmd[3]
-		}).then(()=>{
-			this._reforest._sendMessage(this.chatId, 'Evento creado');
+		return new Promise(function(resolve,reject){
+			if(cmd.length!==4){
+				return reject({
+						message:{
+							id: chatId,
+							text: 'El número de parámetros para crear un evento es incorrecto.'
+						}
+					});
+			}
+			return resolve(cmd);
 		});
 	}
 }

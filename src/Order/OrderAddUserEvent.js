@@ -17,9 +17,7 @@ class orderAddUserEvent extends Order {
 			cmd = msg.text.split(' ');
 
 			return this._db.Event.find({
-				where:{
-					name: cmd[1]
-				}
+				where:{ name: cmd[1] }
 			});
 		})
 		.then(event =>{
