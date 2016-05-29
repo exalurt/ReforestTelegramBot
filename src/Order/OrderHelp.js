@@ -13,9 +13,14 @@ class orderHelp extends Order {
 			range: "jefazo",
 			title: "Operaciones de jefazo.\n",
 			op:[
+				"/addUserEvent event [username username....]\nAñade tantos usuarios como quieras de una vez a un evento.\n",
+				"/createEvent name startDate endDate\nCrea un evento. Es necesario poner un nombre (sin espacios) y una fecha de inicio y otra de finalización.\n",
 				"/createUser [username username....]\nCrea tantos usuarios como quieras de una vez.\n",
 				"/deleteUser [username username....]\nElimina tantos usuarios como quieras de una vez.\n",
-				"/list\nLista los usuarios registrados en el bot con su nivel.\n",
+				"/listEvents\nLista los los eventos registrados en el bot.\n",
+				"/listUserEvent\nLista los usuarios registrados en el bot con su nivel.\n",
+				"/listUsers\nLista los usuarios registrados en el bot con su nivel.\n",
+				"/removeUserEvent\nLista los usuarios registrados en el bot con su nivel.\n",
 				"/setAdmin [username username....]\n Da a los usuarios nivel de admin.\n",
 				"/setJefazo [username username....]\n Da a los usuarios nivel de jefazo.\n",
 				"/setRaso [username username....]\n Da a los usuarios nivel raso.\n"
@@ -34,7 +39,7 @@ class orderHelp extends Order {
 			range: "jefazo admin raso",
 			title: "Operaciones de raso.\n",
 			op:[
-				"Aún no sé si aquí irá algo.\n"
+				"/help\n Da a los usuarios nivel raso.\n"
 			]
 		};
 	}

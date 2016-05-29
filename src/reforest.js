@@ -8,11 +8,17 @@ module.exports = class reforest{
     this._photoDir = photoDir;
     this._db = db;
     this._bot = new TelegramBot(token, {polling: true});
-    
+
+    this._bot.onText(/\/addUserEvent (.+)/, (msg)=>this._addUserEvent(msg));
+    this._bot.onText(/\/createEvent (.+)/, (msg)=>this._createEvent(msg));
     this._bot.onText(/\/createUser (.+)/, (msg)=>this._createUser(msg));
+    this._bot.onText(/\/deleteEvent (.+)/, (msg)=>this._deleteEvent(msg));
     this._bot.onText(/\/deleteUser (.+)/, (msg)=>this._deleteUser(msg));
     this._bot.onText(/\/help/, (msg)=>this._help(msg));
-    this._bot.onText(/\/list/, (msg)=>this._list(msg));
+    this._bot.onText(/\/listEvents/, (msg)=>this._listEvents(msg));
+    this._bot.onText(/\/listUsers/, (msg)=>this._listUsers(msg));
+    this._bot.onText(/\/listUserEvent/, (msg)=>this._listUserEvent(msg));
+    this._bot.onText(/\/removeUserEvent (.+)/, (msg)=>this._removeUserEvent(msg));
     this._bot.onText(/\/setAdmin (.+)/, (msg)=>this._setUser(msg, 'admin'));
     this._bot.onText(/\/setJefazo (.+)/, (msg)=>this._setUser(msg, 'jefazo'));
     this._bot.onText(/\/setRaso (.+)/, (msg)=>this._setUser(msg, 'raso'));
@@ -23,9 +29,24 @@ module.exports = class reforest{
     this._bot.sendMessage(chatId,msg);
   }
 
+  _addUserEvent(msg){
+    let orderAddUserEvent = require('./Order/OrderAddUserEvent')(this._db, this);
+    orderAddUserEvent.execute(msg);
+  }
+
+  _createEvent(msg){
+    let orderCreateEvent = require('./Order/OrderCreateEvent')(this._db, this);
+    orderCreateEvent.execute(msg);
+  }
+
   _createUser(msg){
     let orderCreateUser = require('./Order/OrderCreateUser')(this._db, this);
     orderCreateUser.execute(msg);
+  }
+
+  _deleteEvent(msg){
+    let orderDeleteEvent = require('./Order/OrderDeleteEvent')(this._db, this);
+    orderDeleteEvent.execute(msg);
   }
 
   _deleteUser(msg){
@@ -38,9 +59,19 @@ module.exports = class reforest{
     orderHelp.execute(msg);
   }
 
-  _list(msg){
+  _listEvents(msg){
+    let orderListEvent = require('./Order/OrderListEvent')(this._db, this);
+    orderListEvent.execute(msg);
+  }
+
+  _listUsers(msg){
     let orderList = require('./Order/OrderList')(this._db, this);
     orderList.execute(msg);
+  }
+
+  _listUserEvent(msg){
+    let orderListUsersEvent = require('./Order/OrderListUsersEvent')(this._db, this);
+    orderListUsersEvent.execute(msg);
   }
 
   _recivePhoto (msg) {
@@ -61,6 +92,11 @@ module.exports = class reforest{
 
       this._sendMessage(chatId,"pero queeeeee");
     });
+  }
+
+  _removeUserEvent(msg){
+    let orderRemoveUserEvent = require('./Order/OrderRemoveUserEvent')(this._db, this);
+    orderRemoveUserEvent.execute(msg);
   }
 
   _setUser(msg,rango) {

@@ -10,17 +10,21 @@ class orderList extends Order {
 	}
 
 	execute(msg) {
-		super.execute(msg, this);
+		this.validate(msg)
+		.then(user =>{
+			return this._db.User.findAll();
+		})
+		.then(users =>{
+			this.listUsers(msg.chat.id, users);
+		})
+		.catch(err=>this.error(err));
 	}
 
-	callback(msg) {
-		this._reforest._sendMessage(this.chatId, 'Eres el puto amo');
-		this._db.User.findAll().then((users) =>{
-			var message ="";
-			for(var i in users) {
-				message += users[i].username + ", tiene un nivel de " + users[i].roll+ "\n";
-			}
-			this._reforest._sendMessage(this.chatId, message);
-		});
+	listUsers(chatId, users) {
+		var message ="";
+		for(var i in users) {
+			message += "@" + users[i].username + ", tiene un nivel de " + users[i].roll+ "\n";
+		}
+		this._reforest._sendMessage(chatId, message);
 	}
 }
