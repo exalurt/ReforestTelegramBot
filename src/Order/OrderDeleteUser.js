@@ -10,24 +10,40 @@ class orderDeleteUser extends Order {
 	}
 
 	execute(msg) {
-		super.execute(msg, this);
+		//super.execute(msg, this);
+		var chatId = msg.chat.id;
+		this.validate(msg)
+		.then(user =>{
+			return this.checkParams(msg);
+		})
+		.then(cmd =>{
+			for(var i=1;i<cmd.length;i++){
+				this.deleteUser(chatId, cmd[i]);
+			}
+		})
+		.catch(err=>this.error(err));
 	}
 
-	callback(msg){
+	checkParams(msg){
 		var cmd = msg.text.split(' ');
-		
-		if(cmd.length<2){
-			this._reforest._sendMessage(this.chatId, 'no hay lista de usuarios a crear');
-		}
+		var chatId = msg.chat.id;
 
-		for(var i=1;i<cmd.length;i++){
-			this.deleteUser(cmd[i]);
-		}
+		return new Promise(function(resolve,reject){
+			if(cmd.length<2){
+				return reject({
+						message:{
+							id: chatId,
+							text: 'No hay lista de usuarios para eliminar.'
+						}
+					});
+			}
+			return resolve(cmd);
+		});
 	}
 
-	deleteUser(username) {
+	deleteUser(chatId, username) {
 		if(username === 'santiagosd'){
-			this._reforest._sendMessage(this.chatId, '¿Donde vas bitter kas?');
+			this._reforest._sendMessage(chatId, '¿Donde vas bitter kas?');
 			return;
 		}
 
@@ -35,7 +51,7 @@ class orderDeleteUser extends Order {
 			where: {username: username}
 		}).then((user)=>{
 			user.destroy().then(()=>{
-				this._reforest._sendMessage(this.chatId, username + ' eliminado.');
+				this._reforest._sendMessage(chatId, username + ' eliminado.');
 			})
 		});
 	}
