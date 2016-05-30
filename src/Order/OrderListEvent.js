@@ -10,16 +10,22 @@ class orderListEvent extends Order {
 	}
 
 	execute(msg) {
-		super.execute(msg, this);
+		//super.execute(msg, this);
+		this.validate(msg)
+		.then(user =>{
+			return this._db.Event.findAll();
+		})
+		.then(events =>{
+			this.listEvents(msg.chat.id, events);
+		})
+		.catch(err=>this.error(err));
 	}
 
-	callback(msg) {
-		this._db.Event.findAll().then((events) =>{
-			var message ="";
-			for(var i in events) {
-				message += events[i].name + "\n";
-			}
-			this._reforest._sendMessage(this.chatId, message);
-		});
+	listEvents(chatId, events) {
+		var message ="";
+		for(var i in events) {
+			message += events[i].name + "\n";
+		}
+		this._reforest._sendMessage(chatId, message);
 	}
 }
