@@ -11,31 +11,67 @@ class orderSetUser extends Order {
 	}
 
 	execute(msg) {
-		super.execute(msg, this);
+		var chatId = msg.chat.id;
+		this.chatId = msg.chat.id;
+		this.validate(msg)
+		.then(user =>{
+			return this.checkParams(msg);
+		})
+		.then(cmd =>{
+			return this.listUser(cmd)
+		})
+		.then(sqlObj=>{
+			this._db.User.update({roll:this._rango},sqlObj)
+			.spread((affectedCount, affectedRows)=>{
+				console.log("affectedCount:" + affectedCount);
+				console.log("affectedRows:" + affectedRows);
+			})
+		})
+		.catch(err=>this.error(err));
 	}
 
-	callback(msg){
+	checkParams(msg){
 		var cmd = msg.text.split(' ');
-		if(cmd.length<2){
-			this._reforest._sendMessage(this.chatId, 'no hay lista de usuarios a crear');
-		}
+		var chatId = msg.chat.id;
 
-		for(var i=1;i<cmd.length;i++){
-			this.setUser(cmd[i]);
-		}
+		return new Promise(function(resolve,reject){
+			if(cmd.length<2){
+				return reject({
+						message:{
+							id: chatId,
+							text: 'No hay lista de usuarios a actualizar.'
+						}
+					});
+			}
+			return resolve(cmd);
+		});
 	}
 
-	setUser(username) {
-		if(username === 'santiagosd'){
-			this._reforest._sendMessage(this.chatId, '¿Donde vas bitter kas?');
-			return;
-		}
+	listUser(cmd) {
+		var chatId = this.chatId;
+		return new Promise(function(resolve,reject){
+			var userArray = [];
+			for(var i=1;i<cmd.length;i++) {
+				if(cmd[i] === 'santiagosd'){
+					return reject({
+						message:{
+							id: chatId,
+							text: '¿santiagosd? ¿Donde vas bitter kas?'
+						}
+					});
 
-		this._db.User.find({
-			where: {username: username}
-		}).then((user)=>{
-			user.roll = this._rango;
-			user.save();
+				} else {
+					userArray.push({username:cmd[i]});
+				}
+			}
+
+			var sqlObj = {
+				where:{
+					$or: userArray
+				}
+			};
+
+			return resolve(sqlObj);
 		});
 	}
 }
