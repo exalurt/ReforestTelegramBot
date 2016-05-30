@@ -10,7 +10,6 @@ class orderDeleteUser extends Order {
 	}
 
 	execute(msg) {
-		//super.execute(msg, this);
 		var chatId = msg.chat.id;
 		this.validate(msg)
 		.then(user =>{

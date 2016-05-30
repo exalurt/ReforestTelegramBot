@@ -10,7 +10,6 @@ class orderListUsersEvent extends Order {
 	}
 
 	execute(msg) {
-		//super.execute(msg, this);
 		var chatId = msg.chat.id;
 		var _event = null;
 		var cmd = msg.text.split(' ');

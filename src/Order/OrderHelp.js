@@ -45,7 +45,6 @@ class orderHelp extends Order {
 	}
 
 	execute(msg) {
-		//super.execute(msg, this);
 		var chatId = msg.chat.id;
 		this.validate(msg)
 		.then(user =>{
@@ -66,12 +65,5 @@ class orderHelp extends Order {
 			}
 		}
 		return message;
-	}
-
-	callback(msg){
-		var message = this.listaComandos(this.jefazo);
-		message += "\n\n" + this.listaComandos(this.admin);
-		message += "\n\n" + this.listaComandos(this.raso);
-		this._reforest._sendMessage(this.chatId, message);
 	}
 }

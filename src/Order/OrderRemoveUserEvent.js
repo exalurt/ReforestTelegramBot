@@ -11,7 +11,6 @@ class orderRemoveUserEvent extends Order {
 	}
 
 	execute(msg) {
-		//super.execute(msg, this);
 		var cmd = msg.text.split(' ');
 
 		this.validate(msg)
@@ -26,24 +25,6 @@ class orderRemoveUserEvent extends Order {
 			this.removeUser(msg.chat.id, event, cmd);
 		})
 		.catch(err=>this.error(err));
-	}
-
-	callback(msg){
-		var cmd = msg.text.split(' ');
-		var chatId = msg.chat.id;
-		var _event = null;
-
-		this._db.Event.find({
-			where:{
-				name: cmd[1]
-			}
-		}).then((event)=>{
-			if(event === null){
-				this._reforest._sendMessage(chatId, 'Lo siento, el evento solicitado no existe.');
-				return;
-			}
-			this.removeUser(chatId, event, cmd);
-		});
 	}
 
 	removeUser(chatId, event,cmd) {

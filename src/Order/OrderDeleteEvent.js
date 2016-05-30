@@ -45,20 +45,4 @@ class orderDeleteEvent extends Order {
 			return resolve(cmd);
 		});
 	}
-
-	callback(msg){
-		var cmd = msg.text.split(' ');
-		
-		if(cmd.length<2){
-			this._reforest._sendMessage(this.chatId, 'No has puesto ningún evento a borrar.');
-		}
-
-		this._db.Event.find({
-			where: {name: cmd[1]}
-		}).then((event)=>{
-			event.destroy().then(()=>{
-				this._reforest._sendMessage(this.chatId, 'Evento eliminado.');
-			})
-		});
-	}
 }

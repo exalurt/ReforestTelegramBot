@@ -10,7 +10,6 @@ class orderListEvent extends Order {
 	}
 
 	execute(msg) {
-		//super.execute(msg, this);
 		this.validate(msg)
 		.then(user =>{
 			return this._db.Event.findAll();
