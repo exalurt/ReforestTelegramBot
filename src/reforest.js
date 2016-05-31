@@ -2,6 +2,8 @@ const TelegramBot = require('node-telegram-bot-api');
 const tesseract = require('node-tesseract');
 const PaserLines = require('./PaserLines');
 
+
+
 module.exports = class reforest{
 
   constructor(token,photoDir,db){
@@ -9,19 +11,21 @@ module.exports = class reforest{
     this._db = db;
     this._bot = new TelegramBot(token, {polling: true});
 
-    this._bot.onText(/\/addUserEvent (.+)/, (msg)=>this._addUserEvent(msg));
-    this._bot.onText(/\/createEvent (.+)/, (msg)=>this._createEvent(msg));
-    this._bot.onText(/\/createUser (.+)/, (msg)=>this._createUser(msg));
-    this._bot.onText(/\/deleteEvent (.+)/, (msg)=>this._deleteEvent(msg));
-    this._bot.onText(/\/deleteUser (.+)/, (msg)=>this._deleteUser(msg));
-    this._bot.onText(/\/help/, (msg)=>this._help(msg));
-    this._bot.onText(/\/listEvents/, (msg)=>this._listEvents(msg));
-    this._bot.onText(/\/listUsers/, (msg)=>this._listUsers(msg));
-    this._bot.onText(/\/listUserEvent/, (msg)=>this._listUserEvent(msg));
-    this._bot.onText(/\/removeUserEvent (.+)/, (msg)=>this._removeUserEvent(msg));
-    this._bot.onText(/\/setAdmin (.+)/, (msg)=>this._setUser(msg, 'admin'));
-    this._bot.onText(/\/setJefazo (.+)/, (msg)=>this._setUser(msg, 'jefazo'));
-    this._bot.onText(/\/setRaso (.+)/, (msg)=>this._setUser(msg, 'raso'));
+    this._orders = require('./Order/OrdersArray');
+
+    this._bot.onText(/\/addUserEvent (.+)/, (msg)=>this._order(this._orders.get('addUserEvent'),msg));
+    this._bot.onText(/\/createEvent (.+)/, (msg)=>this._order(this._orders.get('createEvent'),msg));
+    this._bot.onText(/\/createUser (.+)/, (msg)=>this._order(this._orders.get('createUser'),msg));
+    this._bot.onText(/\/deleteEvent (.+)/, (msg)=>this._order(this._orders.get('deleteEvent'),msg));
+    this._bot.onText(/\/deleteUser (.+)/, (msg)=>this._order(this._orders.get('deleteUser'),msg));
+    this._bot.onText(/\/help/, (msg)=>this._order(this._orders.get('help'),msg));
+    this._bot.onText(/\/listEvents/, (msg)=>this._order(this._orders.get('listEvents'),msg));
+    this._bot.onText(/\/listUsers/, (msg)=>this._order(this._orders.get('listUsers'),msg));
+    this._bot.onText(/\/listUserEvent/, (msg)=>this._order(this._orders.get('listUserEvent'),msg));
+    this._bot.onText(/\/removeUserEvent (.+)/, (msg)=>this._order(this._orders.get('removeUserEvent'),msg));
+    this._bot.onText(/\/setAdmin (.+)/, (msg)=>this._order(this._orders.get('setUser'),msg, 'admin'));
+    this._bot.onText(/\/setJefazo (.+)/, (msg)=>this._order(this._orders.get('setUser'),msg, 'jefazo'));
+    this._bot.onText(/\/setRaso (.+)/, (msg)=>this._order(this._orders.get('setUser'),msg, 'raso'));
     //this._bot.on('document', (msg)=>this._recivePhoto(msg));
   }
 
@@ -29,49 +33,9 @@ module.exports = class reforest{
     this._bot.sendMessage(chatId,msg);
   }
 
-  _addUserEvent(msg){
-    let orderAddUserEvent = require('./Order/OrderAddUserEvent')(this._db, this);
-    orderAddUserEvent.execute(msg);
-  }
-
-  _createEvent(msg){
-    let orderCreateEvent = require('./Order/OrderCreateEvent')(this._db, this);
-    orderCreateEvent.execute(msg);
-  }
-
-  _createUser(msg){
-    let orderCreateUser = require('./Order/OrderCreateUser')(this._db, this);
-    orderCreateUser.execute(msg);
-  }
-
-  _deleteEvent(msg){
-    let orderDeleteEvent = require('./Order/OrderDeleteEvent')(this._db, this);
-    orderDeleteEvent.execute(msg);
-  }
-
-  _deleteUser(msg){
-    let orderDeleteUser = require('./Order/OrderDeleteUser')(this._db, this);
-    orderDeleteUser.execute(msg);
-  }
-
-  _help(msg){
-    let orderHelp = require('./Order/OrderHelp')(this._db, this);
-    orderHelp.execute(msg);
-  }
-
-  _listEvents(msg){
-    let orderListEvent = require('./Order/OrderListEvent')(this._db, this);
-    orderListEvent.execute(msg);
-  }
-
-  _listUsers(msg){
-    let orderList = require('./Order/OrderList')(this._db, this);
-    orderList.execute(msg);
-  }
-
-  _listUserEvent(msg){
-    let orderListUsersEvent = require('./Order/OrderListUsersEvent')(this._db, this);
-    orderListUsersEvent.execute(msg);
+  _order(lib, msg, rango) {
+    let order = require(lib)(this._db, this, rango);
+    order.execute(msg);
   }
 
   _recivePhoto (msg) {
@@ -92,15 +56,5 @@ module.exports = class reforest{
 
       this._sendMessage(chatId,"pero queeeeee");
     });
-  }
-
-  _removeUserEvent(msg){
-    let orderRemoveUserEvent = require('./Order/OrderRemoveUserEvent')(this._db, this);
-    orderRemoveUserEvent.execute(msg);
-  }
-
-  _setUser(msg,rango) {
-    let orderSetUser = require('./Order/OrderSetUser')(this._db, this, rango);
-    orderSetUser.execute(msg);
   }
 }

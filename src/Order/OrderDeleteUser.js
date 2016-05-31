@@ -30,12 +30,13 @@ class orderDeleteUser extends Order {
 		return new Promise(function(resolve,reject){
 			if(cmd.length<2){
 				return reject({
-						message:{
-							id: chatId,
-							text: 'No hay lista de usuarios para eliminar.'
-						}
-					});
+					message:{
+						id: chatId,
+						text: 'No hay lista de usuarios para eliminar.'
+					}
+				});
 			}
+
 			return resolve(cmd);
 		});
 	}
