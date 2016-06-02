@@ -10,7 +10,10 @@ class orderListEvent extends Order {
 	}
 
 	execute(msg) {
-		this.validate(msg)
+		this.checkUser(msg)
+		.then(user =>{
+			return this.validateUser(user);
+		})
 		.then(user =>{
 			return this._db.Event.findAll();
 		})

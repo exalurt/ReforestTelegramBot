@@ -46,7 +46,10 @@ class orderHelp extends Order {
 
 	execute(msg) {
 		var chatId = msg.chat.id;
-		this.validate(msg)
+		this.checkUser(msg)
+		.then(user =>{
+			return this.validateUser(user);
+		})
 		.then(user =>{
 			var message = this.listaComandos(user.roll, this.jefazo);
 			message += "\n\n" + this.listaComandos(user.roll, this.admin);

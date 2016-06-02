@@ -10,7 +10,10 @@ class orderList extends Order {
 	}
 
 	execute(msg) {
-		this.validate(msg)
+		this.checkUser(msg)
+		.then(user =>{
+			return this.validateUser(user);
+		})
 		.then(user =>{
 			return this._db.User.findAll();
 		})

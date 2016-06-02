@@ -5,35 +5,37 @@ module.exports = class Order {
 		this.rolls = rolls;
 	}
 
-	validate(msg){
-		var chatId = msg.chat.id;
-		var  userDB = this._db.User;
-		var rolls = this.rolls;
-
-		return new Promise(function(resolve,reject){
-			userDB.find({
+	checkUser(msg) {
+		this.chatId = msg.chat.id;
+		return new Promise((resolve, reject)=>{
+			this._db.User.find({
 				where:{username: msg.from.username}
 			}).then((user) => {
 				if(user == null){
 					return reject({log:'No  esta registrado el usuario.'});
 				}
 
-				if(user.userid === 'undefined' || user.userid != chatId){
-					user.userid = chatId;
+				if(user.userid === 'undefined' || user.userid != this.chatId){
+					user.userid = this.chatId;
 					user.save();
 				}
-
-				if(rolls.indexOf(user.roll)>-1) {
-					return resolve(user);
-				} else {
-					return reject({
-						message:{
-							id: chatId,
-							text: 'No tienes permiso para esta operación.'
-						}
-					});
-				}
+				return resolve(user);
 			});
+		});
+	}
+
+	validateUser(user) {
+		return new Promise((resolve, reject)=>{
+			if(this.rolls.indexOf(user.roll)>-1) {
+				return resolve(user);
+			} else {
+				return reject({
+					message:{
+						id: this.chatId,
+						text: 'No tienes permiso para esta operación.'
+					}
+				});
+			}
 		});
 	}
 
@@ -41,8 +43,9 @@ module.exports = class Order {
 		if (err.log !== undefined){
 			console.log(err.log);
 		}
-		if (err.message !== undefined) {
+		if (err.message !== undefined && err.name === undefined) {
 			this._reforest._sendMessage(err.message.id, err.message.text);
 		}
+		console.log(JSON.stringify(err));
 	}
 }

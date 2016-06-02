@@ -11,7 +11,10 @@ class orderDeleteEvent extends Order {
 
 	execute(msg) {
 		var chatId = msg.chat.id;
-		this.validate(msg)
+		this.checkUser(msg)
+		.then(user =>{
+			return this.validateUser(user);
+		})
 		.then(user =>{
 			return this.checkParams(msg);
 		})

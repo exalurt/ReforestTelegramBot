@@ -13,19 +13,44 @@ module.exports = class reforest{
 
     this._orders = require('./Order/OrdersArray');
 
-    this._bot.onText(/\/addUserEvent (.+)/, (msg)=>this._order(this._orders.get('addUserEvent'),msg));
-    this._bot.onText(/\/createEvent (.+)/, (msg)=>this._order(this._orders.get('createEvent'),msg));
-    this._bot.onText(/\/createUser (.+)/, (msg)=>this._order(this._orders.get('createUser'),msg));
-    this._bot.onText(/\/deleteEvent (.+)/, (msg)=>this._order(this._orders.get('deleteEvent'),msg));
-    this._bot.onText(/\/deleteUser (.+)/, (msg)=>this._order(this._orders.get('deleteUser'),msg));
-    this._bot.onText(/\/help/, (msg)=>this._order(this._orders.get('help'),msg));
-    this._bot.onText(/\/listEvents/, (msg)=>this._order(this._orders.get('listEvents'),msg));
-    this._bot.onText(/\/listUsers/, (msg)=>this._order(this._orders.get('listUsers'),msg));
-    this._bot.onText(/\/listUserEvent/, (msg)=>this._order(this._orders.get('listUserEvent'),msg));
-    this._bot.onText(/\/removeUserEvent (.+)/, (msg)=>this._order(this._orders.get('removeUserEvent'),msg));
-    this._bot.onText(/\/setAdmin (.+)/, (msg)=>this._order(this._orders.get('setUser'),msg, 'admin'));
-    this._bot.onText(/\/setJefazo (.+)/, (msg)=>this._order(this._orders.get('setUser'),msg, 'jefazo'));
-    this._bot.onText(/\/setRaso (.+)/, (msg)=>this._order(this._orders.get('setUser'),msg, 'raso'));
+    this._bot.onText(/\/addUserEvent (.+)/,
+      (msg)=>this._order(this._orders.get('addUserEvent'),msg));
+
+    this._bot.onText(/\/createEvent (.+)/,
+      (msg)=>this._order(this._orders.get('createEvent'),msg));
+
+    this._bot.onText(/\/createUser (.+)/,
+      (msg)=>this._order(this._orders.get('createUser'),msg));
+
+    this._bot.onText(/\/deleteEvent (.+)/,
+      (msg)=>this._order(this._orders.get('deleteEvent'),msg));
+
+    this._bot.onText(/\/deleteUser (.+)/,
+      (msg)=>this._order(this._orders.get('deleteUser'),msg));
+
+    this._bot.onText(/\/help/,
+      (msg)=>this._order(this._orders.get('help'),msg));
+
+    this._bot.onText(/\/listEvents/,
+      (msg)=>this._order(this._orders.get('listEvents'),msg));
+
+    this._bot.onText(/\/listUsers/,
+      (msg)=>this._order(this._orders.get('listUsers'),msg));
+
+    this._bot.onText(/\/listUserEvent/,
+      (msg)=>this._order(this._orders.get('listUserEvent'),msg));
+
+    this._bot.onText(/\/removeUserEvent (.+)/,
+      (msg)=>this._order(this._orders.get('removeUserEvent'),msg));
+
+    this._bot.onText(/\/setAdmin (.+)/,
+      (msg)=>this._order(this._orders.get('setUser'),msg, 'admin'));
+
+    this._bot.onText(/\/setJefazo (.+)/, 
+      (msg)=>this._order(this._orders.get('setUser'),msg, 'jefazo'));
+
+    this._bot.onText(/\/setRaso (.+)/,
+      (msg)=>this._order(this._orders.get('setUser'),msg, 'raso'));
     //this._bot.on('document', (msg)=>this._recivePhoto(msg));
   }
 

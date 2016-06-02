@@ -13,7 +13,10 @@ class orderListUsersEvent extends Order {
 		var chatId = msg.chat.id;
 		var _event = null;
 		var cmd = msg.text.split(' ');
-		this.validate(msg)
+		this.checkUser(msg)
+		.then(user =>{
+			return this.validateUser(user);
+		})
 		.then(user =>{
 			return this._db.Event.find({
 				where:{
