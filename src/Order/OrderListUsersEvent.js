@@ -13,7 +13,7 @@ class orderListUsersEvent extends Order {
 		var chatId = msg.chat.id;
 		var _event = null;
 		var cmd = msg.text.split(' ');
-		this.checkUser(msg)
+		return this.checkUser(msg)
 		.then(user =>{
 			return this.validateUser(user);
 		})

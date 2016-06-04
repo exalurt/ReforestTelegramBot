@@ -11,7 +11,7 @@ class orderCreateUser extends Order {
 
 	execute(msg) {
 		var chatId = msg.chat.id;
-		this.checkUser(msg)
+		return this.checkUser(msg)
 		.then(user =>{
 			return this.validateUser(user);
 		})

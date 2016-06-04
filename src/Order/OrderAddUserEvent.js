@@ -12,7 +12,7 @@ class orderAddUserEvent extends Order {
 	execute(msg) {
 		this.chatId = msg.chat.id;
 		var cmd = '';
-		this.checkUser(msg)
+		return this.checkUser(msg)
 		.then(user =>{
 			return this.validateUser(user);
 		})

@@ -10,7 +10,7 @@ class orderListEvent extends Order {
 	}
 
 	execute(msg) {
-		this.checkUser(msg)
+		return this.checkUser(msg)
 		.then(user =>{
 			return this.validateUser(user);
 		})

@@ -13,7 +13,7 @@ class orderRemoveUserEvent extends Order {
 	execute(msg) {
 		var cmd = msg.text.split(' ');
 
-		this.checkUser(msg)
+		return this.checkUser(msg)
 		.then(user =>{
 			return this.validateUser(user);
 		})

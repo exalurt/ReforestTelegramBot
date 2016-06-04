@@ -15,7 +15,7 @@ module.exports = class Order {
 					return reject({log:'No  esta registrado el usuario.'});
 				}
 
-				if(user.userid === 'undefined' || user.userid != this.chatId){
+				if(user.userid === undefined || user.userid != this.chatId){
 					user.userid = this.chatId;
 					user.save();
 				}
