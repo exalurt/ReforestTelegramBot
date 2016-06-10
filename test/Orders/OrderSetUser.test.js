@@ -11,13 +11,11 @@ describe("OrderSetUser", function() {
 		it("listed", function(done) {
 			//prepare
 			const userSave = sinon.spy();
-			const userRemoveEvent = sinon.spy();
 			const user = {
 				username: "user",
 				userid: 42,
 				roll: 'jefazo',
 				save: userSave,
-				removeEvent: userRemoveEvent
 			};
 
 			const event ={
@@ -25,7 +23,8 @@ describe("OrderSetUser", function() {
 			};
 
 			const reforest = {
-				_sendMessage: sinon.spy()
+				_sendMessage: sinon.spy(),
+				_sendLog: sinon.spy()
 			}
 			const myfindUser = sinon.stub();
 			myfindUser.withArgs({where:{username: "username"}}).returns(new Promise((resolve,reject) => resolve(user)));
@@ -48,7 +47,6 @@ describe("OrderSetUser", function() {
 				}
 			}
 			const order = new OrderSetUser(db, reforest, 'raso');
-			
 			order.execute({
 				chat: {id: 42},
 				from: {username: "username"},

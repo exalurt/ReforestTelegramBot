@@ -38,6 +38,7 @@ describe("OrderCreateUser", function() {
 				}
 			}
 			const order = new OrderCreateUser(db, reforest);
+
 			
 			order.execute({
 				chat: {id: 42},
@@ -63,7 +64,8 @@ describe("OrderCreateUser", function() {
 			};
 
 			const reforest = {
-				_sendMessage: sinon.spy()
+				_sendMessage: sinon.spy(),
+				_sendLog: sinon.spy()
 			}
 			const myfindUser = sinon.stub();
 			myfindUser.withArgs({where:{username: "username"}}).returns(new Promise((resolve,reject) => resolve(user)));
@@ -82,7 +84,6 @@ describe("OrderCreateUser", function() {
 				}
 			}
 			const order = new OrderCreateUser(db, reforest);
-			
 			order.execute({
 				chat: {id: 42},
 				from: {username: "username"},

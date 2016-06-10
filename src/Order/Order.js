@@ -1,3 +1,6 @@
+let ErrorMessage = require('../ErrorMessage');
+let errorMessage = new ErrorMessage();
+
 module.exports = class Order {
 	constructor(db, reforest, rolls) {
 		this._db = db;
@@ -12,7 +15,7 @@ module.exports = class Order {
 				where:{username: msg.from.username}
 			}).then((user) => {
 				if(user == null){
-					return reject({log:'No  esta registrado el usuario.'});
+					return reject(errorMessage.log('UserNoRegister'));
 				}
 
 				if(user.userid === undefined || user.userid != this.chatId){
@@ -29,23 +32,18 @@ module.exports = class Order {
 			if(this.rolls.indexOf(user.roll)>-1) {
 				return resolve(user);
 			} else {
-				return reject({
-					message:{
-						id: this.chatId,
-						text: 'No tienes permiso para esta operación.'
-					}
-				});
+				return reject(errorMessage.message(this.chatId, 'NoPermission'));
 			}
 		});
 	}
 
 	error(err) {
 		if (err.log !== undefined){
-			console.log(err.log);
+			this._reforest._sendLog(err.log);
 		}
 		if (err.message !== undefined && err.name === undefined) {
 			this._reforest._sendMessage(err.message.id, err.message.text);
 		}
-		console.log(JSON.stringify(err));
+		this._reforest._sendLog("llega un error como es posible"+JSON.stringify(err));
 	}
 }

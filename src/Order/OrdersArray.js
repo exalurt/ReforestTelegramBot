@@ -10,6 +10,7 @@ orders.set("listUsers",       './Order/OrderList');
 orders.set("listUserEvent",   './Order/OrderListUsersEvent');
 orders.set("removeUserEvent", './Order/OrderRemoveUserEvent');
 orders.set("setUser",         './Order/OrderSetUser');
+orders.set("sendImage",       './Order/OrderSendImage');
 
 
 module.exports = orders;

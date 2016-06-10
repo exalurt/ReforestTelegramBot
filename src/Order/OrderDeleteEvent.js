@@ -1,4 +1,5 @@
 let Order = require('./Order');
+let ErrorMessage = require('../ErrorMessage');
 
 module.exports = function(db, reforest){
 	return new orderDeleteEvent(db,reforest);
@@ -38,12 +39,7 @@ class orderDeleteEvent extends Order {
 
 		return new Promise(function(resolve,reject){
 			if(cmd.length<2){
-				return reject({
-						message:{
-							id: chatId,
-							text: 'No has puesto ningún evento a borrar.'
-						}
-					});
+				return reject(ErrorMessage.message(chatId, 'NoEvent'));
 			}
 			return resolve(cmd);
 		});

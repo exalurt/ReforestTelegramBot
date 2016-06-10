@@ -2,14 +2,11 @@ const TelegramBot = require('node-telegram-bot-api');
 const tesseract = require('node-tesseract');
 const PaserLines = require('./PaserLines');
 
-
-
 module.exports = class reforest{
-
   constructor(token,photoDir,db){
     this._photoDir = photoDir;
     this._db = db;
-    this._bot = new TelegramBot(token, {polling: true});
+    this._bot = new TelegramBot(token, {polling: {timeout:10, interval:2000}});
 
     this._orders = require('./Order/OrdersArray');
 
@@ -51,35 +48,46 @@ module.exports = class reforest{
 
     this._bot.onText(/\/setRaso (.+)/,
       (msg)=>this._order(this._orders.get('setUser'),msg, 'raso'));
-    //this._bot.on('document', (msg)=>this._recivePhoto(msg));
+
+    this._bot.on('document',
+      (msg)=>this._order(this._orders.get('sendImage'),msg, 'raso'));
   }
 
   _sendMessage(chatId,msg){
     this._bot.sendMessage(chatId,msg);
   }
 
+  _sendLog(msg) {
+    console.log(msg);
+  }
+
+  _downLoadFile(file_id) {
+    return this._bot.downloadFile(file_id, this._photoDir);
+  }
+
+  _tesseract(chatId, resp, eventName) {
+    return new Promise((resolve,reject)=>{
+      tesseract.process(resp,(err,text)=>{
+        if(err){
+          return reject({
+            message:{
+              id: chatId,
+              text: 'La foto no valia lo siento.'
+            }
+          });
+        }else{
+          const paserLines = new PaserLines(eventName);
+          const profile = paserLines.scannerLine(text.split("\n"));
+          let image = resp.split('/');
+          profile.image = image[image.length-1];
+          resolve(profile);
+        }
+      });
+    });
+  }
+
   _order(lib, msg, rango) {
     let order = require(lib)(this._db, this, rango);
     order.execute(msg);
-  }
-
-  _recivePhoto (msg) {
-    var chatId = msg.chat.id;
-    this._sendMessage(chatId,'se ha recibido un documento');
-    console.log(msg);
-
-    this._bot.downloadFile(msg.document.file_id, _photoDir).then(resp => {
-      tesseract.process(resp,function(err,text){
-        if(err){
-          this._sendMessage(chatId,"esta foto no valia lo siento");
-        }else{
-          const paserLines = new PaserLines("pueba");
-          const profile = paserLines.scannerLine(text.split("\n"));
-          this._sendMessage(chatId,text);
-        }
-      });
-
-      this._sendMessage(chatId,"pero queeeeee");
-    });
   }
 }

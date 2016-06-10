@@ -1,4 +1,6 @@
 let Order = require('./Order');
+let ErrorMessage = require('../ErrorMessage');
+
 
 module.exports = function(db, reforest){
 	return new orderCreateEvent(db,reforest);
@@ -37,12 +39,7 @@ class orderCreateEvent extends Order {
 
 		return new Promise(function(resolve,reject){
 			if(cmd.length!==4){
-				return reject({
-						message:{
-							id: chatId,
-							text: 'El número de parámetros para crear un evento es incorrecto.'
-						}
-					});
+				return reject(ErrorMessage.message(this.chatId, 'NumParamsError'));
 			}
 			return resolve(cmd);
 		});

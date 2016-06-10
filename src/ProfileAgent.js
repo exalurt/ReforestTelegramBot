@@ -31,19 +31,40 @@ module.exports = class ProfileAgent {
     this._data.set("XM Recharged",null);
   }
 
+  isCheck() {
+    if (this._ap     === undefined || this._ap     === null) return false;
+    if (this._name   === undefined || this._name   === null) return false;
+    if (this._level  === undefined || this._level  === null) return false;
+    if (this._image  === undefined || this._image  === null) return false;
+    if (this._reto   === undefined || this._reto   === null) return false;
+
+    for (let [key,value] of this._data) {
+      if (value === undefined || value === null) return false;
+    }
+
+    return true;
+  }
+
   get ap() {
     return this._ap;
   }
 
   set ap(ap) {
-    const value = ap.substring(0, ap.indexOf(" ")).replace(/[^0-9]/g, "");
-    this._ap = parseInt(value,10);
+    const value = this._getValueInput(ap.substring(0, ap.indexOf(" ")));
+    this._ap = value;
+    if (isNaN(this._ap)) {
+      this._ap = null;
+    }
   }
 
   setData(key){
     for (var element of this._data.keys()) {
       if(key.startsWith(element)) {
-        this._data.set(element, this._getValueInput(key));
+        let value = this._getValueInput(key);
+        if (isNaN(value)) {
+          value = null;
+        }
+        this._data.set(element, value);
       }
     }
   }
@@ -52,13 +73,28 @@ module.exports = class ProfileAgent {
     return this._data.get(key);
   }
 
+  get DataMap() {
+    return this._data;
+  }
+
+  get image() {
+    return this._image;
+  }
+
+  set image(img) {
+    this._image = img;
+  }
+
   get level() {
     return this._level;
   }
 
   set level(level) {
-    const value = level.substring(level.length-2,level.length);
-    this._level = parseInt(value,10);
+    let value = this._getValueInput(level.substring(level.length-2,level.length));
+    if (isNaN(value)) {
+      value = null;
+    }
+    this._level = value;
   }
 
   get name() {

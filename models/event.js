@@ -14,6 +14,7 @@ module.exports = function(sequelize, DataTypes) {
           as:'users',
           through:'events_users'
         });
+        Event.hasMany(models.Photo);
       }
     }
   });

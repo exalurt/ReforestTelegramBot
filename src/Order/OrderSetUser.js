@@ -1,4 +1,6 @@
 let Order = require('./Order');
+let ErrorMessage = require('../ErrorMessage');
+let errorMessage = new ErrorMessage();
 
 module.exports = function(db, reforest, rango){
 	return new orderSetUser(db,reforest, rango);
@@ -39,12 +41,7 @@ class orderSetUser extends Order {
 
 		return new Promise(function(resolve,reject){
 			if(cmd.length<2){
-				return reject({
-						message:{
-							id: chatId,
-							text: 'No hay lista de usuarios a actualizar.'
-						}
-					});
+				return reject(errorMessage.message(chatId, 'EmptyListUser'));
 			}
 			return resolve(cmd);
 		});
@@ -56,12 +53,7 @@ class orderSetUser extends Order {
 			var userArray = [];
 			for(var i=1;i<cmd.length;i++) {
 				if(cmd[i] === 'santiagosd'){
-					return reject({
-						message:{
-							id: chatId,
-							text: '¿santiagosd? ¿Donde vas bitter kas?'
-						}
-					});
+					return reject(errorMessage.message(chatId, 'BitterKas'));
 
 				} else {
 					userArray.push({username:cmd[i]});

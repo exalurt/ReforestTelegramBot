@@ -1,4 +1,6 @@
 let Order = require('./Order');
+let ErrorMessage = require('../ErrorMessage');
+let errorMessage = new ErrorMessage();
 
 module.exports = function(db, reforest){
 	return new orderCreateUser(db,reforest);
@@ -36,14 +38,9 @@ class orderCreateUser extends Order {
 		var cmd = msg.text.split(' ');
 		var chatId = msg.chat.id;
 
-		return new Promise(function(resolve,reject){
+		return new Promise((resolve,reject)=>{
 			if(cmd.length<2){
-				return reject({
-						message:{
-							id: chatId,
-							text: 'No hay lista de usuarios a crear.'
-						}
-					});
+				return reject(errorMessage.message(chatId, 'EmptyListUser'));
 			}
 			return resolve(cmd);
 		});

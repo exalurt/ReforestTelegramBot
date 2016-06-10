@@ -1,4 +1,6 @@
 let Order = require('./Order');
+let ErrorMessage = require('../ErrorMessage');
+
 
 module.exports = function(db, reforest){
 	return new orderDeleteUser(db,reforest);
@@ -32,12 +34,7 @@ class orderDeleteUser extends Order {
 
 		return new Promise(function(resolve,reject){
 			if(cmd.length<2){
-				return reject({
-					message:{
-						id: chatId,
-						text: 'No hay lista de usuarios para eliminar.'
-					}
-				});
+				return reject(ErrorMessage.message(this.chatId, 'EmptyListUser'));
 			}
 
 			return resolve(cmd);
