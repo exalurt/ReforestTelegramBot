@@ -14,8 +14,10 @@ class orderHelp extends Order {
 			title: "Operaciones de jefazo.\n",
 			op:[
 				"/addUserEvent event [username username....]\nAñade tantos usuarios como quieras de una vez a un evento.\n",
+				"/activeEvent event\nActiva un evento, esto es como los inmortales solo puede haber uno.\n",
 				"/createEvent name startDate endDate\nCrea un evento. Es necesario poner un nombre (sin espacios) y una fecha de inicio y otra de finalización.\n",
 				"/createUser [username username....]\nCrea tantos usuarios como quieras de una vez.\n",
+				"/deActiveEvent event\nDesactiva un evento.\n",
 				"/deleteUser [username username....]\nElimina tantos usuarios como quieras de una vez.\n",
 				"/listEvents\nLista los los eventos registrados en el bot.\n",
 				"/listUserEvent\nLista los usuarios registrados en el bot con su nivel.\n",

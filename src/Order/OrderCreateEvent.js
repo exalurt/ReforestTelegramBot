@@ -1,5 +1,6 @@
 let Order = require('./Order');
 let ErrorMessage = require('../ErrorMessage');
+let errorMessage = new ErrorMessage();
 
 
 module.exports = function(db, reforest){
@@ -39,7 +40,7 @@ class orderCreateEvent extends Order {
 
 		return new Promise(function(resolve,reject){
 			if(cmd.length!==4){
-				return reject(ErrorMessage.message(this.chatId, 'NumParamsError'));
+				return reject(errorMessage.message(this.chatId, 'NumParamsError'));
 			}
 			return resolve(cmd);
 		});

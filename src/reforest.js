@@ -10,6 +10,9 @@ module.exports = class reforest{
 
     this._orders = require('./Order/OrdersArray');
 
+    this._bot.onText(/\/activeEvent (.+)/,
+      (msg)=>this._order(this._orders.get('stateEvent'),msg, true));
+
     this._bot.onText(/\/addUserEvent (.+)/,
       (msg)=>this._order(this._orders.get('addUserEvent'),msg));
 
@@ -18,6 +21,9 @@ module.exports = class reforest{
 
     this._bot.onText(/\/createUser (.+)/,
       (msg)=>this._order(this._orders.get('createUser'),msg));
+
+    this._bot.onText(/\/deActiveEvent (.+)/,
+      (msg)=>this._order(this._orders.get('stateEvent'),msg, false));
 
     this._bot.onText(/\/deleteEvent (.+)/,
       (msg)=>this._order(this._orders.get('deleteEvent'),msg));

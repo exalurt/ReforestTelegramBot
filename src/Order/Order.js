@@ -44,6 +44,6 @@ module.exports = class Order {
 		if (err.message !== undefined && err.name === undefined) {
 			this._reforest._sendMessage(err.message.id, err.message.text);
 		}
-		this._reforest._sendLog("llega un error como es posible"+JSON.stringify(err));
+		this._reforest._sendLog(JSON.stringify(err));
 	}
 }
