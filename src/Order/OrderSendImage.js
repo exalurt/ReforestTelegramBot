@@ -98,7 +98,11 @@ class orderSendImage extends Order {
 
 	saveProfile(chatId, profile, user, event) {
 		return new Promise((resolve, reject)=>{
-			user.getPhotos()
+			user.getPhotos({
+				where:{
+					EventId: event.id
+				}
+			})
 			.then(photos=>{
 				if (photos !== null && photos.length > 1) {
 					return reject(errorMessage.message(chatId, 'ManyImages'));

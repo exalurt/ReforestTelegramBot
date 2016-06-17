@@ -9,100 +9,100 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       image: {
-        type: DataTypes.STRING
+        type: Sequelize.STRING
       },
       check: {
-        type: DataTypes.BOOLEAN
+        type: Sequelize.BOOLEAN
       },
       ap: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       level: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       agents_Successfully_Recruited: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       control_Fields_Created: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       distance_Walked: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       enemy_Control_Fields_Destroyed: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       enemy_Links_Destroyed: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       glyph_Hack_Points: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       hacks: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       largest_Control_Field: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       largest_Field_MUs_x_Days: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       links_Created: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       longest_Hacking_Streak: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       longest_Link_Ever_Created: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       max_Link_Length_x_Days: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       max_Time_Field_Held: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       max_Time_Link_Maintained: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       max_Time_Portal_Held: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       mind_Units_Captured: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       mods_Deployed: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       portals_Captured: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       portals_Discovered: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       portals_Neutralized: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       resonators_Deployed: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       resonators_Destroyed: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       unique_Missions_Completed: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       unique_Portals_Captured: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       unique_Portals_Visited: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       xM_Collected: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       xM_Recharged: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -111,7 +111,29 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      EventId: {
+        type: Sequelize.INTEGER,
+        references:{
+          model:'Events',
+          key:'id'
+        },
+        onUpdate: 'cascade',
+        onDelete: null
+      },
+      UserId: {
+        type: Sequelize.INTEGER,
+        references:{
+          model:'Users',
+          key:'id'
+        },
+        onUpdate: 'cascade',
+        onDelete: null
       }
+    },
+    {
+      engine: 'InnoDB',
+      charset: 'latin1'
     });
   },
   down: function(queryInterface, Sequelize) {

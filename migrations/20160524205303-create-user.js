@@ -27,6 +27,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
+    },
+    {
+      engine: 'InnoDB',
+      charset: 'latin1'
     });
   },
   down: function(queryInterface, Sequelize) {

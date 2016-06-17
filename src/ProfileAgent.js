@@ -1,39 +1,39 @@
 module.exports = class ProfileAgent {
   constructor(){
     this._data  = new Map();
-    this._data.set("Agents Successfully Recruited",null);
+    //this._data.set("Agents Successfully Recruited",null);
     this._data.set("Control Fields Created",null);
     this._data.set("Distance Walked",null);
     this._data.set("Enemy Control Fields Destroyed",null);
     this._data.set("Enemy Links Destroyed",null);
     this._data.set("Glyph Hack Points",null);
     this._data.set("Hacks",null);
-    this._data.set("Largest Control Field",null);
-    this._data.set("Largest Field MUs x Days",null);
+    //this._data.set("Largest Control Field",null);
+    //this._data.set("Largest Field MUs x Days",null);
     this._data.set("Links Created",null);
-    this._data.set("Longest Hacking Streak",null);
-    this._data.set("Longest Link Ever Created",null);
-    this._data.set("Max Link Length x Days",null);
-    this._data.set("Max Time Field Held",null);
-    this._data.set("Max Time Link Maintained",null);
-    this._data.set("Max Time Portal Held",null);
+    //this._data.set("Longest Hacking Streak",null);
+    //this._data.set("Longest Link Ever Created",null);
+    //this._data.set("Max Link Length x Days",null);
+    //this._data.set("Max Time Field Held",null);
+    //this._data.set("Max Time Link Maintained",null);
+    //this._data.set("Max Time Portal Held",null);
     this._data.set("Mind Units Captured",null);
     this._data.set("Mods Deployed",null);
     this._data.set("Portals Captured",null);
-    this._data.set("Portals Discovered",null);
+    //this._data.set("Portals Discovered",null);
     this._data.set("Portals Neutralized",null);
     this._data.set("Resonators Deployed",null);
     this._data.set("Resonators Destroyed",null);
     this._data.set("Unique Missions Completed",null);
     this._data.set("Unique Portals Captured",null);
-    this._data.set("Unique Portals Visited",null);
+    //this._data.set("Unique Portals Visited",null);
     this._data.set("XM Collected",null);
     this._data.set("XM Recharged",null);
   }
 
   isCheck() {
     if (this._ap     === undefined || this._ap     === null) return false;
-    if (this._name   === undefined || this._name   === null) return false;
+    //if (this._name   === undefined || this._name   === null) return false;
     if (this._level  === undefined || this._level  === null) return false;
     if (this._image  === undefined || this._image  === null) return false;
     if (this._reto   === undefined || this._reto   === null) return false;

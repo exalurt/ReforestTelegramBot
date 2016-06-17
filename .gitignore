@@ -3,3 +3,4 @@ build
 *.sqlite3
 .env
 photos
+npm-debug.log

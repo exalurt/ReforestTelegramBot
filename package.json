@@ -3,14 +3,13 @@
   "version": "1.0.0",
   "scripts": {
     "build": "babel -d ./build src",
-    "start": "node build/apps.js",
     "test": "mocha test/*.js test/*/*.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "minimist": "^1.2.0",
-    "mysql": "^2.10.2",
+    "mysql": "^2.11.1",
     "node-telegram-bot-api": "^0.21.1",
     "node-tesseract": "^0.2.7",
     "sequelize": "^3.23.2"

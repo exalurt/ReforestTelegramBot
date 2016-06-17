@@ -1,14 +1,23 @@
 {
   "development": {
-    "storage": "database_development.sqlite3",
-    "dialect": "sqlite"
+    "username": "root",
+    "password": "q",
+    "database": "botijin",
+    "host": "localhost",
+    "dialect": "mysql"
   },
   "test": {
-    "storage": "database_test.sqlite3",
-    "dialect": "sqlite"
+    "username": "root",
+    "password": "q",
+    "database": "database_test",
+    "host": "localhost",
+    "dialect": "mysql"
   },
   "production": {
-    "storage": "database_production.sqlite3",
-    "dialect": "sqlite"
+    "username": "root",
+    "password": "q",
+    "database": "database_production",
+    "host": "localhost",
+    "dialect": "mysql"
   }
 }
