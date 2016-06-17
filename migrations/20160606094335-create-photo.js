@@ -119,7 +119,7 @@ module.exports = {
           key:'id'
         },
         onUpdate: 'cascade',
-        onDelete: null
+        onDelete: 'set null'
       },
       UserId: {
         type: Sequelize.INTEGER,
@@ -128,7 +128,7 @@ module.exports = {
           key:'id'
         },
         onUpdate: 'cascade',
-        onDelete: null
+        onDelete: 'set null'
       }
     },
     {

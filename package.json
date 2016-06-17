@@ -5,7 +5,7 @@
     "build": "babel -d ./build src",
     "test": "mocha test/*.js test/*/*.js"
   },
-  "author": "",
+  "author": " ",
   "license": "ISC",
   "dependencies": {
     "minimist": "^1.2.0",
