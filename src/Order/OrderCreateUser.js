@@ -8,7 +8,7 @@ module.exports = function(db, reforest){
 
 class orderCreateUser extends Order {
 	constructor(db, reforest) {
-		super(db, reforest, 'jefazo admin');
+		super(db, reforest, 'jefazo asistente');
 	}
 
 	execute(msg) {
@@ -49,10 +49,11 @@ class orderCreateUser extends Order {
 	listNewUsers(cmd) {
 		var bulk = [];
 		for(var i=1;i<cmd.length;i++){
-			bulk.push({
-				username: cmd[i],
-				roll:'raso'
-			});
+			if(cmd[i]!=="")
+				bulk.push({
+					username: cmd[i],
+					roll:'normal'
+				});
 		}
 		return bulk;
 	}

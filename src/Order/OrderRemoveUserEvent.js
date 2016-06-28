@@ -6,7 +6,7 @@ module.exports = function(db, reforest, rango){
 
 class orderRemoveUserEvent extends Order {
 	constructor(db, reforest, rango) {
-		super(db, reforest, 'jefazo admin');
+		super(db, reforest, 'jefazo asistente');
 		this._rango = rango;
 	}
 

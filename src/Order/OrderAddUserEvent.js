@@ -6,7 +6,7 @@ module.exports = function(db, reforest){
 
 class orderAddUserEvent extends Order {
 	constructor(db, reforest) {
-		super(db, reforest, 'jefazo admin');
+		super(db, reforest, 'jefazo asistente');
 	}
 
 	execute(msg) {

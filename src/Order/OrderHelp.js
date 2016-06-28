@@ -13,15 +13,23 @@ class orderHelp extends Order {
 			range: "jefazo",
 			title: "Operaciones de jefazo.\n",
 			op:[
-				"/addUserEvent event [username username....]\nAñade tantos usuarios como quieras de una vez a un evento.\n",
 				"/activeEvent event\nActiva un evento, esto es como los inmortales solo puede haber uno.\n",
 				"/createEvent name startDate endDate\nCrea un evento. Es necesario poner un nombre (sin espacios) y una fecha de inicio y otra de finalización.\n",
-				"/createUser [username username....]\nCrea tantos usuarios como quieras de una vez.\n",
 				"/deActiveEvent event\nDesactiva un evento.\n",
-				"/deleteUser [username username....]\nElimina tantos usuarios como quieras de una vez.\n",
 				"/listEvents\nLista los los eventos registrados en el bot.\n",
+				"/listUsers\nLista los usuarios registrados en el bot con su nivel.\n"
+			]
+		};
+
+		this.admin = {
+			range: "jefazo asistente",
+			title: "Operaciones de asistente.\n",
+			op:[
+				"/addUserEvent event [username username....]\nAñade tantos usuarios como quieras de una vez a un evento.\n",
+				"/createUser [username username....]\nCrea tantos usuarios como quieras de una vez.\n",
+				"/deleteEvent event\nElimina evento.\n",
+				"/deleteUser [username username....]\nElimina tantos usuarios como quieras de una vez.\n",
 				"/listUserEvent\nLista los usuarios registrados en el bot con su nivel.\n",
-				"/listUsers\nLista los usuarios registrados en el bot con su nivel.\n",
 				"/removeUserEvent\nLista los usuarios registrados en el bot con su nivel.\n",
 				"/setAdmin [username username....]\n Da a los usuarios nivel de admin.\n",
 				"/setJefazo [username username....]\n Da a los usuarios nivel de jefazo.\n",
@@ -29,17 +37,9 @@ class orderHelp extends Order {
 			]
 		};
 
-		this.admin = {
-			range: "jefazo admin",
-			title: "Operaciones de admin.\n",
-			op:[
-				"Que me lio esto son las operaciones de admin.\n"
-			]
-		};
-
 		this.raso = {
-			range: "jefazo admin raso",
-			title: "Operaciones de raso.\n",
+			range: "jefazo asistente normal",
+			title: "Operaciones de normal.\n",
 			op:[
 				"/help\n Ayuda con los comandos del bot. Solo salen a los que tienes acceso.\n"
 			]

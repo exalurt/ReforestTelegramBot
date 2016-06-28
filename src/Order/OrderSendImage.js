@@ -8,7 +8,7 @@ module.exports = function(db, reforest){
 
 class orderSendImage extends Order {
 	constructor(db, reforest) {
-		super(db, reforest, 'jefazo admin raso');
+		super(db, reforest, 'jefazo asistente normal');
 	}
 
 	execute(msg) {
