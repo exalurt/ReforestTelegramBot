@@ -44,7 +44,7 @@ class orderSendImage extends Order {
 			return this.saveProfile(chatId, profile, user, event);
 		})
 		.then(() =>{
-			this._reforest._sendMessage(chatId, 'Evento creado');
+			this._reforest._sendMessage(chatId, 'Imagen registrada. Gracias.');
 		})
 		.catch(err =>this.error(err));
 	}
@@ -123,9 +123,7 @@ class orderSendImage extends Order {
 						return event.addPhoto(photo);
 					})
 					.then(()=>{
-						if (photo.check) return resolve();
-
-						return reject(errorMessage.message(chatId, 'IncompleteImage'));
+						return resolve();
 					})
 				});
 			})

@@ -47,16 +47,16 @@ module.exports = class reforest{
       (msg)=>this._order(this._orders.get('removeUserEvent'),msg));
 
     this._bot.onText(/\/setAdmin (.+)/,
-      (msg)=>this._order(this._orders.get('setUser'),msg, 'admin'));
+      (msg)=>this._order(this._orders.get('setUser'),msg, 'asistente'));
 
     this._bot.onText(/\/setJefazo (.+)/, 
       (msg)=>this._order(this._orders.get('setUser'),msg, 'jefazo'));
 
     this._bot.onText(/\/setRaso (.+)/,
-      (msg)=>this._order(this._orders.get('setUser'),msg, 'raso'));
+      (msg)=>this._order(this._orders.get('setUser'),msg, 'normal'));
 
     this._bot.on('document',
-      (msg)=>this._order(this._orders.get('sendImage'),msg, 'raso'));
+      (msg)=>this._order(this._orders.get('sendImage'),msg, 'normal'));
   }
 
   _sendMessage(chatId,msg){
